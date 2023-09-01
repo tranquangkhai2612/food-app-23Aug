@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import java.util.Date;
 import java.util.Set;
 
-@Entity
+@Entity(name = "orders")
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

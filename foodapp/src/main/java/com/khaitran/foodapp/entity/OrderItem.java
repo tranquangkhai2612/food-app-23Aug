@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
-@Entity(name = "OrderItem")
+@Entity(name = "order_item")
 public class OrderItem {
     @EmbeddedId
     KeyOrderItem keyOrderItem;

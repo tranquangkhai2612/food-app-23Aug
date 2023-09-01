@@ -3,7 +3,7 @@ package com.khaitran.foodapp.entity;
 import jakarta.persistence.*;
 import org.apache.catalina.User;
 
-@Entity(name = "RatingFood")
+@Entity(name = "rating_food")
 public class RatingFood {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

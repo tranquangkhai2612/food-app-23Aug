@@ -2,7 +2,7 @@ package com.khaitran.foodapp.entity;
 
 import jakarta.persistence.*;
 import java.util.Set;
-@Entity(name = "Category")
+@Entity(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
