@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     UserServiceImp userServiceImp;
 
-    @GetMapping("")
+    @GetMapping("/")
     public ResponseEntity<?> getAllUsers(){
 
         return new ResponseEntity<>(userServiceImp.getAllUsers(), HttpStatus.OK);
