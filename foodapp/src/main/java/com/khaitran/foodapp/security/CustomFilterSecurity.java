@@ -9,18 +9,22 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class CustomFilterSecurity {
     @Autowired
     CustomUserDetailService customUserDetailService;
+    @Autowired
+    CustomJwtFilter customJwtFilter;
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity httpSecurity) throws Exception {
@@ -36,10 +40,12 @@ public class CustomFilterSecurity {
         http
                 .cors(cors -> cors.disable())
                 .csrf(csrf-> csrf.disable())
-                .authorizeHttpRequests(auth->   auth.requestMatchers("/login/**").permitAll())
-                .authorizeHttpRequests(auth->   auth.requestMatchers("/user/").authenticated())
-                .httpBasic(Customizer.withDefaults())
+                .sessionManagement(auth->   auth.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth->   auth.requestMatchers("/login/**","/restaurant/file/**").permitAll())
+                .authorizeHttpRequests(auth->   auth.anyRequest().authenticated())
         ;
+
+        http.addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -7,6 +7,7 @@ import com.khaitran.foodapp.payload.request.SignUpRequest;
 import com.khaitran.foodapp.repository.UserRepository;
 import com.khaitran.foodapp.service.imp.LoginServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import java.util.List;
 public class LoginService implements LoginServiceImp {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserDTO> getAllUsers(){
@@ -38,9 +42,8 @@ public class LoginService implements LoginServiceImp {
 
     @Override
     public boolean checkLogin(String username, String password) {
-        List<Users> listUser = userRepository.findByUsernameAndPassword(username,password);
-
-        return listUser.size() > 0;
+        Users user = userRepository.findByUsername(username);
+        return passwordEncoder.matches(password,user.getPassword());
     }
 
     @Override

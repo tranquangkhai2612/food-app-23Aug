@@ -7,8 +7,17 @@ package com.khaitran.foodapp.payload;
  */
 public class ResponseData {
     private int status = 200;
+    private boolean isSuccess = true;
     private String description;
     private Object data;
+
+    public boolean getIsSuccess() {
+        return isSuccess;
+    }
+
+    public void setIsSuccess(boolean success) {
+        isSuccess = success;
+    }
 
     public int getStatus() {
         return status;

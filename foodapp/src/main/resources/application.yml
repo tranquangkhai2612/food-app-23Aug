@@ -11,3 +11,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+jwt:
+  privateKey: zjl1oPBefvhcNtY/+CRISF8fRbYiVqlMlSVHlHxyQ1k=
+
+fileUpload:
+  rootPath: D:\Learn\SpringBoot\upload
+
