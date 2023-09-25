@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.crypto.SecretKey;
 import java.util.Base64;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -28,13 +29,13 @@ public class LoginController {
     JwtUtilHelper jwtUtilHelper;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> signin(@RequestParam String username,@RequestParam String password){
+    public ResponseEntity<?> signin(@RequestParam String username, @RequestParam String password) {
         ResponseData responseData = new ResponseData();
 
-        if(loginServiceImp.checkLogin(username,password)){
+        if (loginServiceImp.checkLogin(username, password)) {
             String token = jwtUtilHelper.generateToken(username);
             responseData.setData(token);
-        }else{
+        } else {
             responseData.setData("");
             responseData.setIsSuccess(false);
         }
@@ -43,7 +44,7 @@ public class LoginController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest){
+    public ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest) {
         ResponseData responseData = new ResponseData();
         responseData.setData(loginServiceImp.addUser(signUpRequest));
 
